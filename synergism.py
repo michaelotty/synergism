@@ -69,8 +69,7 @@ class App(tkinter.Tk):
                 self._dict_to_tree(uid, dictionary[key])
             elif isinstance(dictionary[key], list):
                 self.tree.insert(parent, 'end', uid, text=str(key) + '[]')
-                self._dict_to_tree(
-                    uid, {i: x for i, x in enumerate(dictionary[key])})
+                self._dict_to_tree(uid, dict(enumerate(dictionary[key])))
             else:
                 value = dictionary[key]
                 if value is None:
