@@ -50,8 +50,9 @@ class App(tkinter.Tk):
             self.file_contents = json.loads(
                 base64.b64decode(encoded_file, validate=True))
         except binascii.Error:
-            showerror(title='Invalid File!',
-                      message='The chosen file is an invalid save file. Please choose another one!')
+            message = 'The chosen file is an invalid save file. Please choose another one!'
+            tkinter.messagebox.showerror(
+                title='Invalid File!', message=message)
             self._open_file()
             return
 
@@ -69,7 +70,7 @@ class App(tkinter.Tk):
             elif isinstance(dictionary[key], list):
                 self.tree.insert(parent, 'end', uid, text=str(key) + '[]')
                 self._dict_to_tree(
-                    uid, dict([(i, x) for i, x in enumerate(dictionary[key])]))
+                    uid, {i: x for i, x in enumerate(dictionary[key])})
             else:
                 value = dictionary[key]
                 if value is None:
