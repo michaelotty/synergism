@@ -3,14 +3,14 @@
 import base64
 import binascii
 import json
-import tkinter as tk
+import tkinter
+import tkinter.filedialog
+import tkinter.messagebox
+import tkinter.ttk
 import uuid
-from tkinter import ttk
-from tkinter.filedialog import askopenfilename
-from tkinter.messagebox import showerror
 
 
-class App(tk.Tk):
+class App(tkinter.Tk):
     """Application window"""
 
     def __init__(self) -> None:
@@ -21,12 +21,12 @@ class App(tk.Tk):
 
         self.title('Synergism Reader')
 
-        self.tree = ttk.Treeview(self, columns='Values', height=40)
+        self.tree = tkinter.ttk.Treeview(self, columns='Values', height=40)
         self.tree.column('0', width=300)
         self.tree.column('Values', width=300, anchor='center')
         self.tree.heading('Values', text='Values')
 
-        self.scroll_bar = ttk.Scrollbar(
+        self.scroll_bar = tkinter.ttk.Scrollbar(
             self, orient='vertical', command=self.tree.yview)
         self.tree.configure(yscrollcommand=self.scroll_bar.set)
 
@@ -37,7 +37,7 @@ class App(tk.Tk):
 
     def _open_file(self):
         """Opens a file picker and read file"""
-        file_name = askopenfilename(
+        file_name = tkinter.filedialog.askopenfilename(
             title='Choose a Synergism save file...', filetypes=(('Synergism Save', '.txt'),))
 
         try:
